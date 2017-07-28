@@ -1,0 +1,49 @@
+// Author:  (norvallu)
+
+import "rpc_option.proto";
+
+package tencent.pbrpc;
+
+message RpcMeta {
+
+  /////////////////////////////////////////////////////
+  // The following fields are used both for request and response.
+
+  // Message type.
+  enum Type {
+    REQUEST = 0;
+    RESPONSE = 1;
+  };
+  required Type type = 1;
+
+  // Message sequence id.
+  required uint64 sequence_id = 2;
+
+  /////////////////////////////////////////////////////
+  // The following fields are used only for response.
+
+  // Method full name.
+  // For example: "test.HelloService.GreetMethod"
+  optional string method = 100;
+
+  /////////////////////////////////////////////////////
+  // The following fields are used only for response.
+
+  // Set as true if the call is failed.
+  optional bool failed = 200;
+
+  // The error code if the call is failed.
+  optional int32 error_code = 201;
+
+  // The error reason if the call is failed.
+  optional string reason = 202;
+
+  /////////////////////////////////////////////////////
+  // Compression related fields.
+
+  // Set the request/response compress type.
+  optional CompressType compress_type = 300;
+
+  // Set the response compress type of user expected.
+  optional CompressType expected_response_compress_type = 301;
+}
